@@ -21,6 +21,8 @@ function AppUI() {
         like,
         nolikes,
         openModal,
+        Edit,
+        searchValue
     } = React.useContext(TodoContext)
     return (
         <>
@@ -29,7 +31,8 @@ function AppUI() {
             <TodoList>
                 {loading && <TodosLoading />}
                 {error && <TodosError />}
-                {(!loading && searchedTodos.length === 0) && <EmptyTodos />}
+                {(!loading && searchedTodos.length === 0 && searchValue.length ===0 ) && <EmptyTodos />}
+                {(searchValue.length > 0 && searchedTodos.length === 0) && <p>no hay coincidencias</p>}
                 {(loading && searchedTodos)}
                 {searchedTodos.map(todo => (
                     <TodoItem key={todo.id}
@@ -40,6 +43,7 @@ function AppUI() {
                         likes={todo.likes}//estamos pasando la funcion
                         like={() => like(todo.id)}//estamos esperado aque se ejecute la funcion
                         nolikes={() => nolikes(todo.id)}
+                        onEdit = {()=> Edit(todo.id)}
                     />
                 ))}
             </TodoList>

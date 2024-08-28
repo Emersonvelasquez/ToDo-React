@@ -5,6 +5,7 @@ const TodoContext = React.createContext();
 
 function TodoProvider({ children }) {
 
+
     const {
         item: todos,
         saveItem: saveTodos,
@@ -17,12 +18,11 @@ function TodoProvider({ children }) {
         saveItem: saveContador,
     } = useLocalStorage("CONTADOR_V1", 0)
 
-
-
-
     const [searchValue, setsearValue] = React.useState('');
 
     const [openModal, setOpenModal] = React.useState(false);
+    const [newTodoValue , setnewTodosValue] = React.useState('');
+    const [id , setId] = React.useState()
 
     const complendTodos = todos.filter(
         todos => !!todos.completed
@@ -95,6 +95,25 @@ function TodoProvider({ children }) {
         }
     }
 
+    const Update = ( id , text) => {
+        const newTodos = [...todos];
+        const todoIndex = newTodos.findIndex(
+            (todo) => todo.id === id
+        );
+        newTodos[todoIndex].text = text
+        saveTodos(newTodos);
+    }
+
+    const Edit = (id) => {
+        setOpenModal(true)
+        setId(id)
+        const newTodos = [...todos]
+        const todoIndex = newTodos.findIndex(
+            (todo) => todo.id === id
+        )
+        setnewTodosValue(newTodos[todoIndex].text)
+    }
+
 
 
     return (
@@ -113,6 +132,12 @@ function TodoProvider({ children }) {
             openModal,
             setOpenModal,
             addTodo,
+            Edit,
+            newTodoValue,
+            setnewTodosValue,
+            id,
+            setId,
+            Update
         }} >
             {children}
         </TodoContext.Provider>

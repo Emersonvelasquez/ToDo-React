@@ -5,21 +5,39 @@ function TodoForm() {
     const {
         addTodo,
         setOpenModal,
+        newTodoValue,
+        setnewTodosValue,
+        setId,
+        id,
+        Update,
     } = React.useContext(TodoContext)
-    const [newTodoValue , setnewTodosValue] = React.useState('')
+    console.log(newTodoValue)
+console.log(id)
 
     const onSubmit = (event) => {
         event.preventDefault()
         addTodo(newTodoValue)
         setOpenModal(false)
+        setnewTodosValue('')
+    }
+
+    const update = (event) => {
+        event.preventDefault()
+        addTodo(newTodoValue)
+        Update(id, newTodoValue)
+        setOpenModal(false)
+        setnewTodosValue('')
+        setId(false)
     }
 
     const onCancel = () => {
         setOpenModal(false)
+        setnewTodosValue('')
+        setId(false)
     }
     return (
         <>
-<form action="" className="container" onSubmit={onSubmit}>
+<form action="" className="container" onSubmit={id ? update :onSubmit}>
 <div className="input-container">
     <div className="input-content">
         <div className="input-dist">
@@ -30,7 +48,7 @@ function TodoForm() {
                 }}
                 value={newTodoValue}/>
             </div>
-            <button>Ingresa</button>
+            <button>{ id ? 'Actualizar' : 'Agregar'}</button>
             <button onClick={onCancel} >cancel</button>
         </div>
     </div>
