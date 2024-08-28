@@ -30,6 +30,7 @@ function AppUI() {
                 {loading && <TodosLoading />}
                 {error && <TodosError />}
                 {(!loading && searchedTodos.length === 0) && <EmptyTodos />}
+                {(loading && searchedTodos)}
                 {searchedTodos.map(todo => (
                     <TodoItem key={todo.id}
                         text={todo.text}
@@ -48,6 +49,9 @@ function AppUI() {
                     <TodoForm/>
                 </Modal>
             )}
+
+
+
         </>
     )
 }

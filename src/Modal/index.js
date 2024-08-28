@@ -1,4 +1,3 @@
-
 import React from "react";
 import  ReactDOM  from "react-dom";
 
@@ -11,4 +10,3 @@ return ReactDOM.createPortal (
 )
 }
 export { Modal };
-
